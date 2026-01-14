@@ -1,0 +1,80 @@
+'use client';
+
+import Image from 'next/image';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { useLanguage } from '@/hooks/use-language';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { ArrowRight, CheckCircle } from 'lucide-react';
+import Link from 'next/link';
+
+export function CaplCglProducts() {
+  const { t } = useLanguage();
+
+  const productImage = PlaceHolderImages.find(
+    (img) => img.id === 'capl-cgl-product'
+  );
+  
+  const whatsappNumber = '551155556551';
+  const whatsappMessage = encodeURIComponent('Olá! Gostaria de um orçamento para produtos de siderurgia.');
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+
+  return (
+    <section
+      className="py-20 sm:py-32 bg-white text-foreground"
+    >
+      <div className="container mx-auto px-4">
+        <div className="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
+           <div className="animate-slide-in-left">
+            {productImage && (
+              <Card className="overflow-hidden rounded-2xl shadow-2xl group">
+                <CardContent className="p-0">
+                  <div className="relative aspect-video w-full">
+                    <Image
+                      src={productImage.imageUrl}
+                      alt={productImage.description}
+                      fill
+                      data-ai-hint={productImage.imageHint}
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+          </div>
+          <div className="animate-slide-in-right">
+            <h3 className="font-headline text-2xl lg:text-3xl font-bold mb-4 uppercase tracking-wider">
+             ROLOS DO FORNO PARA TRANSPORTE DE BARRAS
+            </h3>
+             <p className="text-muted-foreground mb-6 text-lg">
+                {t.expertise_sectors.page.furnace_capl_cgl_description}
+              </p>
+            <ul className="space-y-4 text-muted-foreground">
+              <li className="flex items-start gap-3">
+                <CheckCircle className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
+                <span>{t.expertise_sectors.page.furnace_capl_cgl_item1}</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <CheckCircle className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
+                <span>{t.expertise_sectors.page.furnace_capl_cgl_item2}</span>
+              </li>
+               <li className="flex items-start gap-3">
+                <CheckCircle className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
+                <span>{t.expertise_sectors.page.furnace_capl_cgl_item3}</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <CheckCircle className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
+                <span>{t.expertise_sectors.page.furnace_capl_cgl_item4}</span>
+              </li>
+            </ul>
+            <Button asChild size="lg" className="mt-8">
+              <Link href={whatsappUrl} target="_blank">
+                {t.cta.request_quote} <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

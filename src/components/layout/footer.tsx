@@ -1,0 +1,108 @@
+
+'use client';
+
+import Link from 'next/link';
+import Image from 'next/image';
+import { Facebook, Instagram, Linkedin, Twitter, Mail, MapPin, Phone } from 'lucide-react';
+import { Input } from '../ui/input';
+import { Button } from '../ui/button';
+import { useLanguage } from '@/hooks/use-language';
+
+export function Footer() {
+  const { t, language } = useLanguage();
+
+  const navLinks = [
+      { href: "/sobre", label: t.header.about },
+      { href: "/qualificacao", label: t.header.qualifications },
+      { href: "/contato", label: t.header.contact },
+  ];
+
+  const socialLinks = [
+    { href: "#", label: "Twitter", icon: Twitter },
+    { href: "#", label: "Facebook", icon: Facebook },
+    { href: "#", label: "LinkedIn", icon: Linkedin },
+    { href: "#", label: "Instagram", icon: Instagram },
+  ]
+
+  return (
+    <footer className="bg-secondary text-secondary-foreground border-t">
+      <div className="container mx-auto px-4 sm:px-8 pt-16 pb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 text-left">
+          <div className="flex flex-col items-start lg:col-span-1 md:col-span-2">
+            <Link href="/" className="mb-4 flex items-center gap-2 transition-transform duration-300 hover:scale-105">
+                <Image
+                    src="https://i.imgur.com/OBD0nJ0.png"
+                    alt="Aceros Logo"
+                    width={200}
+                    height={50}
+                    className="h-auto w-52"
+                    priority
+                />
+            </Link>
+            <p className="max-w-xs text-sm text-muted-foreground">
+              {t.footer.description}
+            </p>
+            <div className="mt-6 flex justify-start gap-4">
+              {socialLinks.map(({href, label, icon: Icon}) => (
+                <Link key={label} href={href} aria-label={label} className="text-muted-foreground transition-colors hover:text-primary">
+                  <Icon className="h-6 w-6" />
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <div className="lg:col-span-1">
+            <h3 className="mb-4 font-headline text-lg font-semibold">{t.footer.navigation}</h3>
+            <ul className="space-y-2">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="lg:col-span-1">
+             <h3 className="mb-4 font-headline text-lg font-semibold">{t.footer.contact}</h3>
+              <div className="space-y-4 text-sm text-muted-foreground">
+                <div className="flex items-start gap-3 justify-start">
+                  <MapPin className="h-4 w-4 mt-1 flex-shrink-0 text-primary" />
+                  <span>{t.footer.address}</span>
+                </div>
+                 <div className="flex items-center gap-3 justify-start">
+                  <Mail className="h-4 w-4 flex-shrink-0 text-primary" />
+                  <span>{t.footer.email}</span>
+                </div>
+                <div className="flex items-center gap-3 justify-start">
+                  <Phone className="h-4 w-4 flex-shrink-0 text-primary" />
+                  <span>{t.footer.commercial_phone}</span>
+                </div>
+                <div className="flex items-center gap-3 justify-start">
+                  <Phone className="h-4 w-4 flex-shrink-0 text-primary" />
+                  <span>{t.footer.industrial_phone}</span>
+                </div>
+              </div>
+          </div>
+
+          <div className="lg:col-span-1">
+            <h3 className="mb-4 font-headline text-lg font-semibold">{t.footer.newsletter}</h3>
+            <p className="mb-4 text-sm text-muted-foreground">{t.footer.newsletter_prompt}</p>
+            <form className="flex flex-col sm:flex-row gap-2">
+              <Input type="email" placeholder="email@email.com" className="bg-background" />
+              <Button type="submit" className="bg-accent text-accent-foreground hover:bg-accent/90 transition-transform duration-300 hover:scale-105">{t.footer.subscribe}</Button>
+            </form>
+          </div>
+        </div>
+
+        <div className="mt-12 border-t pt-8 text-center text-sm text-muted-foreground">
+          <p>&copy; {new Date().getFullYear()} {t.footer.rights_reserved}</p>
+        </div>
+      </div>
+    </footer>
+  );
+}
